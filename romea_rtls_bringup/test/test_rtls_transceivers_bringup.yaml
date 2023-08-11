@@ -1,0 +1,11 @@
+name: rtls
+driver:
+  pkg: romea_rtls_transceivers
+  transceivers: [tag0, tag1]
+configuration:
+  pan_id: 0
+  communication: 4GHz_6M8bit
+  transceivers: [tag0, tag1]
+records:
+  poll: true
+  range: true

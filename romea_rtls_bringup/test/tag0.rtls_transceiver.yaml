@@ -1,0 +1,15 @@
+name: "transceiver0"
+namespace: "rtls"
+driver:
+  pkg: "romea_trackbod_tag"
+  device: "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_0669FF515456707067172557-if02"
+  baudrate: 921600
+configuration:
+  type: decawave
+  communication: "4GHz_6M8bit"
+  id: 0
+  pan_id: 0
+  mode: slave
+geometry:
+  parent_link: "base_link"
+  xyz: [0.0, 0.0, 2.0]
