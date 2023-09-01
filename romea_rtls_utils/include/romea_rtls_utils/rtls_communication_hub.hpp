@@ -13,8 +13,8 @@
 // limitations under the License.
 
 
-#ifndef ROMEA_RTLS_UTILS__RTLS_HUB_HPP_
-#define ROMEA_RTLS_UTILS__RTLS_HUB_HPP_
+#ifndef ROMEA_RTLS_UTILS__RTLS_COMMUNICATION_HUB_HPP_
+#define ROMEA_RTLS_UTILS__RTLS_COMMUNICATION_HUB_HPP_
 
 // std
 #include <memory>
@@ -91,4 +91,4 @@ private:
 
 }  // namespace romea
 
-#endif   // ROMEA_RTLS_UTILS__RTLS_HUB_HPP_
+#endif   // ROMEA_RTLS_UTILS__RTLS_COMMUNICATION_HUB_HPP_

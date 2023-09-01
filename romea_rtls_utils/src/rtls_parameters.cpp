@@ -28,9 +28,10 @@ const char maximal_range_param_name[] = "maximal_range";
 const char initiators_names_param_name[] = "initiators_names";
 const char initiators_ids_param_name[] = "initiators_ids";
 const char initiators_positions_param_name[] = "initiators_positions";
-const char responders_names_param_name[] = "responder_names";
-const char responders_ids_param_name[] = "responder_ids";
+const char responders_names_param_name[] = "responders_names";
+const char responders_ids_param_name[] = "responders_ids";
 const char responders_positions_param_name[] = "responders_positions";
+const char enable_sheduler_param_name[] = "enable_sheduler";
 
 namespace romea
 {
@@ -66,23 +67,16 @@ void declare_initiators_names(rclcpp::Node::SharedPtr node)
 }
 
 //-----------------------------------------------------------------------------
-std::vector<uint16_t> get_initiators_ids(rclcpp::Node::SharedPtr node)
+void declare_initiators_ids(rclcpp::Node::SharedPtr node)
 {
-  std::vector<uint16_t> uint16_ids;
-  for (const auto int64_id : get_vector_parameter<int64_t>(node, initiators_ids_param_name)) {
-    assert(int64_id >= 0 && int64_id <= std::numeric_limits<uint16_t>::max());
-    uint16_ids.push_back(static_cast<uint16_t>(int64_id));
-  }
-  return uint16_ids;
+  declare_vector_parameter<int64_t>(node, initiators_ids_param_name);
 }
 
 //-----------------------------------------------------------------------------
 void declare_initiators_positions(rclcpp::Node::SharedPtr node)
 {
-  auto initiators_names = get_vector_parameter<std::string>(node, initiators_names_param_name);
   declare_eigen_vector_parameters<Eigen::Vector3d>(
-    node, initiators_positions_param_name,
-    initiators_names);
+    node, initiators_positions_param_name, get_initiators_names(node));
 }
 
 //-----------------------------------------------------------------------------
@@ -92,25 +86,23 @@ void declare_responders_names(rclcpp::Node::SharedPtr node)
 }
 
 //-----------------------------------------------------------------------------
-std::vector<uint16_t> get_responders_ids(rclcpp::Node::SharedPtr node)
+void declare_responders_ids(rclcpp::Node::SharedPtr node)
 {
-  std::vector<uint16_t> uint16_ids;
-  for (const auto int64_id : get_vector_parameter<int64_t>(node, responders_ids_param_name)) {
-    assert(int64_id >= 0 && int64_id <= std::numeric_limits<uint16_t>::max());
-    uint16_ids.push_back(static_cast<uint16_t>(int64_id));
-  }
-  return uint16_ids;
+  declare_vector_parameter<int64_t>(node, responders_ids_param_name);
 }
 
 //-----------------------------------------------------------------------------
 void declare_responders_positions(rclcpp::Node::SharedPtr node)
 {
-  auto responders_names = get_vector_parameter<std::string>(node, responders_names_param_name);
   declare_eigen_vector_parameters<Eigen::Vector3d>(
-    node, responders_positions_param_name,
-    responders_names);
+    node, responders_positions_param_name, get_responders_names(node));
 }
 
+//-----------------------------------------------------------------------------
+void declare_enable_scheduler(rclcpp::Node::SharedPtr node)
+{
+  declare_parameter_with_default<bool>(node, enable_sheduler_param_name, true);
+}
 
 //-----------------------------------------------------------------------------
 double get_poll_rate(rclcpp::Node::SharedPtr node)
@@ -143,6 +135,17 @@ std::vector<std::string> get_initiators_names(rclcpp::Node::SharedPtr node)
 }
 
 //-----------------------------------------------------------------------------
+std::vector<uint16_t> get_initiators_ids(rclcpp::Node::SharedPtr node)
+{
+  std::vector<uint16_t> uint16_ids;
+  for (const auto int64_id : get_vector_parameter<int64_t>(node, initiators_ids_param_name)) {
+    assert(int64_id >= 0 && int64_id <= std::numeric_limits<uint16_t>::max());
+    uint16_ids.push_back(static_cast<uint16_t>(int64_id));
+  }
+  return uint16_ids;
+}
+
+//-----------------------------------------------------------------------------
 VectorOfEigenVector<Eigen::Vector3d> get_initiators_positions(rclcpp::Node::SharedPtr node)
 {
   return get_eigen_vector_parameters<Eigen::Vector3d>(
@@ -157,11 +160,28 @@ std::vector<std::string> get_responders_names(rclcpp::Node::SharedPtr node)
 }
 
 //-----------------------------------------------------------------------------
+std::vector<uint16_t> get_responders_ids(rclcpp::Node::SharedPtr node)
+{
+  std::vector<uint16_t> uint16_ids;
+  for (const auto int64_id : get_vector_parameter<int64_t>(node, responders_ids_param_name)) {
+    assert(int64_id >= 0 && int64_id <= std::numeric_limits<uint16_t>::max());
+    uint16_ids.push_back(static_cast<uint16_t>(int64_id));
+  }
+  return uint16_ids;
+}
+
+//-----------------------------------------------------------------------------
 VectorOfEigenVector<Eigen::Vector3d> get_responders_positions(rclcpp::Node::SharedPtr node)
 {
   return get_eigen_vector_parameters<Eigen::Vector3d>(
     node, responders_positions_param_name,
     get_responders_names(node));
+}
+
+//-----------------------------------------------------------------------------
+bool get_enable_scheduler(rclcpp::Node::SharedPtr node)
+{
+  return get_parameter<bool>(node, enable_sheduler_param_name);
 }
 
 }  // namespace romea

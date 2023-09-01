@@ -33,111 +33,37 @@
 #include "romea_rtls_communication_hub/rtls_communication_hub.hpp"
 #include "romea_rtls_transceiver_msgs/srv/set_payload.hpp"
 
-class Tag : public romea::TransceiverInterface
+class Tag
 {
+public:
+  using RangingRequest = romea_rtls_transceiver_msgs::msg::RangingRequest;
+  using RangingResult = romea_rtls_transceiver_msgs::msg::RangingResult;
+
 public:
   Tag(
     std::shared_ptr<rclcpp::Node> node,
-    const romea::RTLSTransceiverEUID & transceiver_euid_,
-    const romea::RTLSTransceiverFunction & transceiver_function)
-  : TransceiverInterfaceServer(node, transceiver_euid_, transceiver_function)
+    const uint16_t & transceiver_id)
+  : transceiver_id_(transceiver_id)
   {
-    init_get_payload_service_server_();
-    init_set_payload_service_server_();
-    init_range_action_server_();
-  }
-
-  virtual ~Tag() = default;
-
-private:
-  bool ranging_(const uint16_t & responder_id, RangingResult & range) override
-  {
-    // std::cout << " tag ranging" << std::endl;
-    // std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    range.range = static_cast<double>(transceiver_euid_.id * 65556 + responder_id);
-    return true;
-  }
-
-  bool set_payload_(const Payload & payload) override
-  {
-    // std::cout << " tag set payload" << std::endl;
-    payload_ = payload.data;
-    return true;
-  }
-
-  bool get_payload_(Payload & payload) override
-  {
-    // std::cout << " tag get payload" << std::endl;
-    payload.data = payload_;
-    return true;
   }
 
 private:
+  void process_request(RangingRequest::ConstSharedPtr msg)
+  {
+    RangingResult result;
+    result.initiator_id = uint16_t transceiver_id_;
+    result.responder_id = msg->responder_id;
+    interface_.send_result(result)
+  }
+
+private:
+  uint16_t transceiver_id_;
   std::vector<unsigned char> payload_;
+  std::unique_ptr<romea::RTLSTransceiverInterfaceServer> interface_;
 };
 
-class Master
-{
-public:
-  using  SetTransceiversConfigurationService =
-    romea_rtls_msgs::srv::SetTransceiversConfiguration;
-  using  SetTransceiversConfigurationServiceClient =
-    romea::ServiceClientAsync<SetTransceiversConfigurationService>;
 
-  using Poll = romea_rtls_msgs::msg::Poll;
-  using PollPublisher = rclcpp::Publisher<Poll>;
-
-  using Range = romea_rtls_msgs::msg::Range;
-  using RangeSubscriber = rclcpp::Subscription<Range>;
-
-public:
-  explicit Master(std::shared_ptr<rclcpp::Node> node)
-  : hub_config_srv_client_(nullptr),
-    poll_pub_(nullptr),
-    range_sub_(nullptr)
-  {
-    hub_config_srv_client_ = std::make_shared<SetTransceiversConfigurationServiceClient>(
-      node, "set_external_transceivers_configuration", std::chrono::seconds(1));
-
-    auto configuration = std::make_shared<SetTransceiversConfigurationService::Request>();
-    configuration->transceivers_names = {"anchor0", "anchor1"};
-    configuration->transceivers_ids = {255, 256};
-    hub_config_srv_client_->send_request(configuration);
-
-    poll_pub_ = node->create_publisher<Poll>("/poll", romea::sensor_data_qos());
-
-    using namespace std::placeholders;
-    auto callback = std::bind(&Master::range_callback_, this, _1);
-
-    rclcpp::SubscriptionOptions options;
-    options.callback_group = node->create_callback_group(
-      rclcpp::CallbackGroupType::MutuallyExclusive);
-
-    range_sub_ = node->create_subscription<Range>(
-      "range", romea::best_effort(1), callback, options);
-  }
-
-  void poll(Poll poll)
-  {
-    poll_pub_->publish(poll);
-  }
-
-private:
-  void range_callback_(Range::SharedPtr range_msg)
-  {
-    range = range_msg;
-  }
-
-public:
-  std::shared_ptr<Range> range;
-
-private:
-  std::shared_ptr<SetTransceiversConfigurationServiceClient> hub_config_srv_client_;
-  std::shared_ptr<PollPublisher> poll_pub_;
-  std::shared_ptr<RangeSubscriber> range_sub_;
-};
-
-class TestRTLSTransceiverHub : public ::testing::Test
+class TestRTLSCommunicationHub : public ::testing::Test
 {
 public:
   using Hub = romea::RTLSCommunicationHub;
@@ -159,21 +85,15 @@ protected:
     executor_ = std::make_shared<rclcpp::executors::MultiThreadedExecutor>();
     executor_thread_ = std::thread([this]() {this->executor_->spin();});
 
-    node_master = std::make_shared<rclcpp::Node>("test_rtls_transceiver_master");
+    node_hub = std::make_shared<rclcpp::Node>("test_rtls_transceiver_hub");
     node_tag0 = std::make_shared<rclcpp::Node>("test_rtls_transceiver_tag0", "tag0");
     node_tag1 = std::make_shared<rclcpp::Node>("test_rtls_transceiver_tag1", "tag1");
 
     executor_->add_node(node_tag0);
-    tag0_ = std::make_shared<Tag>(
-      node_tag0,
-      romea::RTLSTransceiverEUID{0, 0},
-      romea::RTLSTransceiverFunction::INITIATOR);
+    tag0_ = std::make_shared<Tag>(node_tag0, 0);
 
     executor_->add_node(node_tag1);
-    tag1_ = std::make_shared<Tag>(
-      node_tag1,
-      romea::RTLSTransceiverEUID{0, 1},
-      romea::RTLSTransceiverFunction::INITIATOR);
+    tag1_ = std::make_shared<Tag>(node_tag1, 1);
 
     rclcpp::NodeOptions no;
     no.arguments(
@@ -183,7 +103,6 @@ protected:
 
     hub_ = std::make_shared<Hub>(no);
     executor_->add_node(hub_->get_node_base_interface());
-
     executor_->add_node(node_master);
     master_ = std::make_shared<Master>(node_master);
   }
@@ -199,12 +118,13 @@ protected:
 
   std::shared_ptr<rclcpp::Node> node_tag0;
   std::shared_ptr<rclcpp::Node> node_tag1;
-  std::shared_ptr<rclcpp::Node> node_master;
+  std::shared_ptr<rclcpp::Node> node_hub;
   rclcpp::Executor::SharedPtr executor_;
   std::thread executor_thread_;
 
   std::shared_ptr<Tag> tag0_;
   std::shared_ptr<Tag> tag1_;
+  std::shared < RTLSComm
   std::shared_ptr<Hub> hub_;
   std::shared_ptr<Master> master_;
 };

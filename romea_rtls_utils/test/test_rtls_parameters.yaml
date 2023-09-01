@@ -1,0 +1,19 @@
+/**:
+  ros__parameters:
+    poll_rate: 20.0
+    minimal_range: 0.5
+    maximal_range: 20.0
+    initiators_names: [i1,i2,i3]
+    initiators_panid: 0
+    initiators_ids: [1,2,3]
+    initiators_positions: 
+      i1: [1.,2.,3.]
+      i2: [4.,5.,6.]
+      i3: [7.,8.,9.]
+    responders_names: [r1,r2,r3]
+    responders_panid: 0
+    responders_ids: [4,5,6]
+    responders_positions: 
+      r1: [11.,12.,13.]
+      r2: [14.,15.,16.]
+      r3: [17.,18.,19.]

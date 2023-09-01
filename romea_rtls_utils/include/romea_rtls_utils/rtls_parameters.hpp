@@ -39,6 +39,8 @@ void declare_initiators_positions(rclcpp::Node::SharedPtr node);
 void declare_responders_names(rclcpp::Node::SharedPtr node);
 void declare_responders_ids(rclcpp::Node::SharedPtr node);
 void declare_responders_positions(rclcpp::Node::SharedPtr node);
+void declare_enable_scheduler(rclcpp::Node::SharedPtr node);
+
 
 double get_poll_rate(rclcpp::Node::SharedPtr node);
 double get_range_std(rclcpp::Node::SharedPtr node);
@@ -50,6 +52,7 @@ VectorOfEigenVector<Eigen::Vector3d> get_initiators_positions(rclcpp::Node::Shar
 std::vector<std::string> get_responders_names(rclcpp::Node::SharedPtr node);
 std::vector<uint16_t> get_responders_ids(rclcpp::Node::SharedPtr node);
 VectorOfEigenVector<Eigen::Vector3d> get_responders_positions(rclcpp::Node::SharedPtr node);
+bool get_enable_scheduler(rclcpp::Node::SharedPtr node);
 
 }  // namespace romea
 
