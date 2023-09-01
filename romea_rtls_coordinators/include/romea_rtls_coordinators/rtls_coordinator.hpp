@@ -13,8 +13,8 @@
 // limitations under the License.
 
 
-#ifndef ROMEA_RTLS_COORDINATORS__RTLS_SIMPLE_COORDINATOR_HPP_
-#define ROMEA_RTLS_COORDINATORS__RTLS_SIMPLE_COORDINATOR__HPP_
+#ifndef ROMEA_RTLS_COORDINATORS__RTLS_COORDINATOR_HPP_
+#define ROMEA_RTLS_COORDINATORS__RTLS_COORDINATOR_HPP_
 
 // std
 #include <map>
@@ -75,4 +75,4 @@ using RTLSGeoreferencedCoordinator = RTLSCoordinator<RTLSGeoreferencedCoordinato
 
 }  // namespace romea
 
-#endif   // ROMEA_RTLS_COORDINATORS__RTLS_COORDINATORS_HPP_
+#endif  // ROMEA_RTLS_COORDINATORS__RTLS_COORDINATOR_HPP_

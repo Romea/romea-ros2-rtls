@@ -13,11 +13,10 @@
 // limitations under the License.
 
 
-#ifndef ROMEA_RTLS_COORDINATORS__RTLS_COORDINATORS_PARAMETERS_HPP_
-#define ROMEA_RTLS_COORDINATORS__RTLS_COORDINATORS_PARAMETERS_HPP_
+#ifndef ROMEA_RTLS_COORDINATORS__RTLS_COORDINATOR_PARAMETERS_HPP_
+#define ROMEA_RTLS_COORDINATORS__RTLS_COORDINATOR_PARAMETERS_HPP_
 
 // std
-//#include <map>
 #include <string>
 #include <vector>
 
@@ -51,4 +50,4 @@ VectorOfEigenVector<Eigen::Vector3d> get_responders_positions(rclcpp::Node::Shar
 
 }  // namespace romea
 
-#endif   // ROMEA_RTLS_COORDINATORS__RTLS_COORDINATORS_PARAMETERS_HPP_
+#endif   // ROMEA_RTLS_COORDINATORS__RTLS_COORDINATOR_PARAMETERS_HPP_
