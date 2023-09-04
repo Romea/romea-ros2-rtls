@@ -14,7 +14,6 @@
   <depend>rclcpp_components</depend>
   <depend>romea_core_common</depend>
   <depend>romea_core_rtls</depend>
-  <depend>romea_core_rtls_transceiver</depend>
   <depend>romea_common_utils</depend>
   <depend>romea_rtls_transceiver_utils</depend>
   <depend>romea_rtls_transceiver_msgs</depend>
