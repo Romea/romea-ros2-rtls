@@ -46,9 +46,11 @@ RTLSCommunicationHub::RTLSCommunicationHub(
       &RTLSCommunicationHub::ranging_result_msg_callback_,
       this, std::placeholders::_1, n);
 
-    auto payload_msg_callback = std::bind(
-      &RTLSCommunicationHub::payload_msg_callback_,
-      this, std::placeholders::_1);
+    RTLSTransceiverInterfaceClient::PayloadCallback payload_msg_callback;
+    if (payload_callback_) {
+      payload_msg_callback = std::bind(
+        &RTLSCommunicationHub::payload_msg_callback_, this, std::placeholders::_1);
+    }
 
     initiators_interfaces_[n] = std::make_unique<RTLSTransceiverInterfaceClient>(
       node, initiators_names_[n], ranging_result_msg_callback, payload_msg_callback);
@@ -102,9 +104,7 @@ void RTLSCommunicationHub::ranging_result_msg_callback_(
 void RTLSCommunicationHub::payload_msg_callback_(
   PayloadMsg::ConstSharedPtr msg)
 {
-  if (payload_callback_) {
-    payload_callback_(*msg);
-  }
+  payload_callback_(*msg);
 }
 
 //-----------------------------------------------------------------------------
