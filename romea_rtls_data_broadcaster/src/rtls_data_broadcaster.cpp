@@ -37,8 +37,10 @@ RTLSDataBroadcaster<DataType>::RTLSDataBroadcaster(const rclcpp::NodeOptions & o
   transceivers_(),
   odom_sub_()
 {
+  std::cout << " broadcaster started" << std::endl;
   init_transceivers_interfaces_();
   init_odom_sub_();
+  std::cout << " broadcaster started" << std::endl;
 }
 
 //-----------------------------------------------------------------------------
@@ -102,3 +104,8 @@ template class RTLSDataBroadcaster<Pose2D>;
 template class RTLSDataBroadcaster<Twist2D>;
 
 }  // namespace romea
+
+//-----------------------------------------------------------------------------
+#include "rclcpp_components/register_node_macro.hpp"
+RCLCPP_COMPONENTS_REGISTER_NODE(romea::RTLSPose2DBroadcaster)
+RCLCPP_COMPONENTS_REGISTER_NODE(romea::RTLSTwist2DBroadcaster)

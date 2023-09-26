@@ -53,12 +53,12 @@ ament_target_dependencies(${PROJECT_NAME}
 )
 
 rclcpp_components_register_node(${PROJECT_NAME}
-  PLUGIN "romea::RTLSPose2DBroadscater"
+  PLUGIN "romea::RTLSPose2DBroadcaster"
   EXECUTABLE rtls_pose2d_broadcaster_node
 )
 
 rclcpp_components_register_node(${PROJECT_NAME}
-  PLUGIN "romea::RTLSTwist2DBroadscater"
+  PLUGIN "romea::RTLSTwist2DBroadcaster"
   EXECUTABLE rtls_twist2d_broadcaster_node
 )
 
@@ -69,6 +69,9 @@ install(TARGETS
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
 
+install(TARGETS
+  ${PROJECT_NAME}
+  DESTINATION lib/${PROJECT_NAME})
 # if(BUILD_TESTING)
 #   find_package(ament_lint_auto REQUIRED)
 #   list(APPEND AMENT_LINT_AUTO_EXCLUDE ament_cmake_copyright)
