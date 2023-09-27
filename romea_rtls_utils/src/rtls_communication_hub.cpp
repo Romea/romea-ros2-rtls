@@ -33,10 +33,29 @@ RTLSCommunicationHub::RTLSCommunicationHub(
   std::shared_ptr<rclcpp::Node> node,
   RangeCallback range_callback,
   PayloadCallback payload_callback)
-: initiators_names_(get_initiators_names(node)),
-  initiators_ids_(get_initiators_ids(node)),
-  responders_names_(get_responders_names(node)),
-  responders_ids_(get_responders_ids(node)),
+: RTLSCommunicationHub(node,
+    get_initiators_names(node),
+    get_initiators_ids(node),
+    get_responders_names(node),
+    get_responders_ids(node),
+    range_callback,
+    payload_callback)
+{
+}
+
+//-----------------------------------------------------------------------------
+RTLSCommunicationHub::RTLSCommunicationHub(
+  std::shared_ptr<rclcpp::Node> node,
+  const std::vector<std::string> & initiators_names,
+  const std::vector<uint16_t> & initiators_ids,
+  const std::vector<std::string> & responders_names,
+  const std::vector<uint16_t> & responders_ids,
+  RangeCallback range_callback,
+  PayloadCallback payload_callback)
+: initiators_names_(initiators_names),
+  initiators_ids_(initiators_ids),
+  responders_names_(responders_names),
+  responders_ids_(responders_ids),
   initiators_interfaces_(initiators_names_.size()),
   range_callback_(range_callback),
   payload_callback_(payload_callback)
@@ -56,6 +75,7 @@ RTLSCommunicationHub::RTLSCommunicationHub(
       node, initiators_names_[n], ranging_result_msg_callback, payload_msg_callback);
   }
 }
+
 
 //-----------------------------------------------------------------------------
 void RTLSCommunicationHub::send_ranging_request(

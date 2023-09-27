@@ -50,10 +50,17 @@ public:
         const PayloadMsg & /*payload*/)>;
 
 public:
-  // explicit RTLSCommunicationHub(std::shared_ptr<rclcpp::Node> node);
+  RTLSCommunicationHub(
+    std::shared_ptr<rclcpp::Node> node,
+    RangeCallback range_callback = {},
+    PayloadCallback payload_callback = {});
 
   RTLSCommunicationHub(
     std::shared_ptr<rclcpp::Node> node,
+    const std::vector<std::string> & initiators_names,
+    const std::vector<uint16_t> & initiators_ids,
+    const std::vector<std::string> & responders_names,
+    const std::vector<uint16_t> & responders_ids,
     RangeCallback range_callback = {},
     PayloadCallback payload_callback = {});
 
