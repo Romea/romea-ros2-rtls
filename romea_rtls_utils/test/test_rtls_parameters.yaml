@@ -3,15 +3,21 @@
     poll_rate: 20.0
     minimal_range: 0.5
     maximal_range: 20.0
-    initiators_names: [i1,i2,i3]
     initiators_panid: 0
+    initiator_name: i1
+    initiator_id: 1
+    initiator_position: [1.,2.,3.]
+    initiators_names: [i1,i2,i3]
     initiators_ids: [1,2,3]
     initiators_positions: 
       i1: [1.,2.,3.]
       i2: [4.,5.,6.]
       i3: [7.,8.,9.]
-    responders_names: [r1,r2,r3]
     responders_panid: 0
+    responder_name: r1
+    responder_id: 4
+    responder_position: [11.,12.,13.]
+    responders_names: [r1,r2,r3]
     responders_ids: [4,5,6]
     responders_positions: 
       r1: [11.,12.,13.]

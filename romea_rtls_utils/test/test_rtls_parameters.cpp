@@ -67,6 +67,42 @@ TEST_F(TestTransceiverParameters, getMaximalRange) {
   EXPECT_DOUBLE_EQ(romea::get_maximal_range(node), 20.0);
 }
 
+TEST_F(TestTransceiverParameters, getInitiatorName) {
+  romea::declare_initiator_name(node);
+  EXPECT_STREQ(romea::get_initiator_name(node).c_str(), "i1");
+}
+
+TEST_F(TestTransceiverParameters, getInitiatorId) {
+  romea::declare_initiator_id(node);
+  EXPECT_EQ(romea::get_initiator_id(node), 1);
+}
+
+TEST_F(TestTransceiverParameters, getInitiatorPosition) {
+  romea::declare_initiator_position(node);
+  auto initiator_position = romea::get_initiator_position(node);
+  EXPECT_EQ(initiator_position[0], 1);
+  EXPECT_EQ(initiator_position[1], 2);
+  EXPECT_EQ(initiator_position[2], 3);
+}
+
+TEST_F(TestTransceiverParameters, getResponderName) {
+  romea::declare_responder_name(node);
+  EXPECT_STREQ(romea::get_responder_name(node).c_str(), "i4");
+}
+
+TEST_F(TestTransceiverParameters, getResponderId) {
+  romea::declare_responder_id(node);
+  EXPECT_EQ(romea::get_responder_id(node), 4);
+}
+
+TEST_F(TestTransceiverParameters, getResponderPosition) {
+  romea::declare_responder_position(node);
+  auto responder_position = romea::get_responder_position(node);
+  EXPECT_EQ(responder_position[0], 11);
+  EXPECT_EQ(responder_position[1], 12);
+  EXPECT_EQ(responder_position[2], 13);
+}
+
 TEST_F(TestTransceiverParameters, getInitiatorsNames) {
   romea::declare_initiators_names(node);
   auto initiators_names = romea::get_initiators_names(node);

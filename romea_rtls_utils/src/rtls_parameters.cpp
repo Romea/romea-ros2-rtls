@@ -25,13 +25,19 @@ const char poll_rate_param_name[] = "poll_rate";
 const char range_std_param_name[] = "range_std";
 const char minimal_range_param_name[] = "minimal_range";
 const char maximal_range_param_name[] = "maximal_range";
-const char initiators_names_param_name[] = "initiators_names";
-const char initiators_ids_param_name[] = "initiators_ids";
-const char initiators_positions_param_name[] = "initiators_positions";
-const char responders_names_param_name[] = "responders_names";
-const char responders_ids_param_name[] = "responders_ids";
-const char responders_positions_param_name[] = "responders_positions";
 const char enable_sheduler_param_name[] = "enable_sheduler";
+const char initiator_id_param_name[] = "initiators_id";
+const char initiator_name_param_name[] = "initiators_name";
+const char initiator_position_param_name[] = "initiators_position";
+const char initiators_ids_param_name[] = "initiators_ids";
+const char initiators_names_param_name[] = "initiators_names";
+const char initiators_positions_param_name[] = "initiators_positions";
+const char responder_id_param_name[] = "responder_id";
+const char responder_name_param_name[] = "responder_name";
+const char responder_position_param_name[] = "responder_position";
+const char responders_ids_param_name[] = "responders_ids";
+const char responders_names_param_name[] = "responders_names";
+const char responders_positions_param_name[] = "responders_positions";
 
 namespace romea
 {
@@ -59,6 +65,45 @@ void declare_maximal_range(rclcpp::Node::SharedPtr node)
 {
   declare_parameter<double>(node, maximal_range_param_name);
 }
+
+//-----------------------------------------------------------------------------
+void declare_initiator_name(rclcpp::Node::SharedPtr node)
+{
+  declare_parameter<std::string>(node, initiator_name_param_name);
+}
+
+//-----------------------------------------------------------------------------
+void declare_initiator_id(rclcpp::Node::SharedPtr node)
+{
+  declare_vector_parameter<int64_t>(node, initiator_id_param_name);
+}
+
+//-----------------------------------------------------------------------------
+void declare_initiator_position(rclcpp::Node::SharedPtr node)
+{
+  declare_eigen_vector_parameter<Eigen::Vector3d>(
+    node, initiators_positions_param_name);
+}
+
+//-----------------------------------------------------------------------------
+void declare_responder_name(rclcpp::Node::SharedPtr node)
+{
+  declare_parameter<std::string>(node, responder_name_param_name);
+}
+
+//-----------------------------------------------------------------------------
+void declare_responder_id(rclcpp::Node::SharedPtr node)
+{
+  declare_parameter<int64_t>(node, responder_id_param_name);
+}
+
+//-----------------------------------------------------------------------------
+void declare_responder_position(rclcpp::Node::SharedPtr node)
+{
+  declare_eigen_vector_parameter<Eigen::Vector3d>(
+    node, responder_position_param_name);
+}
+
 
 //-----------------------------------------------------------------------------
 void declare_initiators_names(rclcpp::Node::SharedPtr node)
@@ -126,6 +171,43 @@ double get_minimal_range(rclcpp::Node::SharedPtr node)
 double get_maximal_range(rclcpp::Node::SharedPtr node)
 {
   return get_parameter<double>(node, maximal_range_param_name);
+}
+
+
+//-----------------------------------------------------------------------------
+std::string get_initiator_name(rclcpp::Node::SharedPtr node)
+{
+  return get_parameter<std::string>(node, initiator_name_param_name);
+}
+
+//-----------------------------------------------------------------------------
+uint16_t get_initiator_id(rclcpp::Node::SharedPtr node)
+{
+  return get_parameter<int64_t>(node, initiator_id_param_name);
+}
+
+//-----------------------------------------------------------------------------
+Eigen::Vector3d get_initiator_position(rclcpp::Node::SharedPtr node)
+{
+  return get_eigen_vector_parameter<Eigen::Vector3d>(node, initiator_position_param_name);
+}
+
+//-----------------------------------------------------------------------------
+std::string get_responder_name(rclcpp::Node::SharedPtr node)
+{
+  return get_parameter<std::string>(node, responder_name_param_name);
+}
+
+//-----------------------------------------------------------------------------
+uint16_t get_responder_id(rclcpp::Node::SharedPtr node)
+{
+  return get_parameter<int64_t>(node, responder_id_param_name);
+}
+
+//-----------------------------------------------------------------------------
+Eigen::Vector3d get_responder_position(rclcpp::Node::SharedPtr node)
+{
+  return get_eigen_vector_parameter<Eigen::Vector3d>(node, responder_position_param_name);
 }
 
 //-----------------------------------------------------------------------------

@@ -32,27 +32,42 @@ void declare_poll_rate(rclcpp::Node::SharedPtr node);
 void declare_range_std(rclcpp::Node::SharedPtr node);
 void declare_minimal_range(rclcpp::Node::SharedPtr node);
 void declare_maximal_range(rclcpp::Node::SharedPtr node);
-
-void declare_initiators_names(rclcpp::Node::SharedPtr node);
-void declare_initiators_ids(rclcpp::Node::SharedPtr node);
-void declare_initiators_positions(rclcpp::Node::SharedPtr node);
-void declare_responders_names(rclcpp::Node::SharedPtr node);
-void declare_responders_ids(rclcpp::Node::SharedPtr node);
-void declare_responders_positions(rclcpp::Node::SharedPtr node);
 void declare_enable_scheduler(rclcpp::Node::SharedPtr node);
+
+void declare_initiator_id(rclcpp::Node::SharedPtr node);
+void declare_initiator_name(rclcpp::Node::SharedPtr node);
+void declare_initiator_position(rclcpp::Node::SharedPtr node);
+void declare_responder_id(rclcpp::Node::SharedPtr node);
+void declare_responder_name(rclcpp::Node::SharedPtr node);
+void declare_responder_position(rclcpp::Node::SharedPtr node);
+
+void declare_initiators_ids(rclcpp::Node::SharedPtr node);
+void declare_initiators_names(rclcpp::Node::SharedPtr node);
+void declare_initiators_positions(rclcpp::Node::SharedPtr node);
+void declare_responders_ids(rclcpp::Node::SharedPtr node);
+void declare_responders_names(rclcpp::Node::SharedPtr node);
+void declare_responders_positions(rclcpp::Node::SharedPtr node);
 
 
 double get_poll_rate(rclcpp::Node::SharedPtr node);
 double get_range_std(rclcpp::Node::SharedPtr node);
 double get_minimal_range(rclcpp::Node::SharedPtr node);
 double get_maximal_range(rclcpp::Node::SharedPtr node);
-std::vector<std::string> get_initiators_names(rclcpp::Node::SharedPtr node);
-std::vector<uint16_t> get_initiators_ids(rclcpp::Node::SharedPtr node);
-VectorOfEigenVector<Eigen::Vector3d> get_initiators_positions(rclcpp::Node::SharedPtr node);
-std::vector<std::string> get_responders_names(rclcpp::Node::SharedPtr node);
-std::vector<uint16_t> get_responders_ids(rclcpp::Node::SharedPtr node);
-VectorOfEigenVector<Eigen::Vector3d> get_responders_positions(rclcpp::Node::SharedPtr node);
 bool get_enable_scheduler(rclcpp::Node::SharedPtr node);
+
+uint16_t get_initiator_id(rclcpp::Node::SharedPtr node);
+std::string get_initiator_name(rclcpp::Node::SharedPtr node);
+Eigen::Vector3d get_initiator_position(rclcpp::Node::SharedPtr node);
+uint16_t get_responder_id(rclcpp::Node::SharedPtr node);
+std::string get_responder_name(rclcpp::Node::SharedPtr node);
+Eigen::Vector3d get_responder_position(rclcpp::Node::SharedPtr node);
+
+std::vector<uint16_t> get_initiators_ids(rclcpp::Node::SharedPtr node);
+std::vector<std::string> get_initiators_names(rclcpp::Node::SharedPtr node);
+VectorOfEigenVector<Eigen::Vector3d> get_initiators_positions(rclcpp::Node::SharedPtr node);
+std::vector<uint16_t> get_responders_ids(rclcpp::Node::SharedPtr node);
+std::vector<std::string> get_responders_names(rclcpp::Node::SharedPtr node);
+VectorOfEigenVector<Eigen::Vector3d> get_responders_positions(rclcpp::Node::SharedPtr node);
 
 }  // namespace romea
 
