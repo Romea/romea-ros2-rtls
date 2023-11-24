@@ -27,6 +27,9 @@
 
 namespace romea
 {
+namespace ros2
+{
+
 //-----------------------------------------------------------------------------
 RTLSCoordinatorTransceiversInterface::RTLSCoordinatorTransceiversInterface(
   const std::shared_ptr<rclcpp::Node> node)
@@ -70,4 +73,5 @@ RTLSTransceiverRangingResult RTLSCoordinatorTransceiversInterface::do_ranging(
   return ranging_result;
 }
 
+}  // namespace ros2
 }  // namespace romea

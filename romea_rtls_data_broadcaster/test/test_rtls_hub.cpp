@@ -33,13 +33,13 @@
 #include "romea_rtls_communication_hub/rtls_communication_hub.hpp"
 #include "romea_rtls_transceiver_msgs/srv/set_payload.hpp"
 
-class Tag : public romea::TransceiverInterfaceServer
+class Tag : public romea::ros2::TransceiverInterfaceServer
 {
 public:
   Tag(
     std::shared_ptr<rclcpp::Node> node,
-    const romea::RTLSTransceiverEUID & transceiver_euid_,
-    const romea::RTLSTransceiverFunction & transceiver_function)
+    const romea::core::RTLSTransceiverEUID & transceiver_euid_,
+    const romea::core::RTLSTransceiverFunction & transceiver_function)
   : TransceiverInterfaceServer(node, transceiver_euid_, transceiver_function)
   {
     init_get_payload_service_server_();
@@ -82,7 +82,7 @@ public:
   using  SetTransceiversConfigurationService =
     romea_rtls_msgs::srv::SetTransceiversConfiguration;
   using  SetTransceiversConfigurationServiceClient =
-    romea::ServiceClientAsync<SetTransceiversConfigurationService>;
+    romea::ros2::ServiceClientAsync<SetTransceiversConfigurationService>;
 
   using Poll = romea_rtls_msgs::msg::Poll;
   using PollPublisher = rclcpp::Publisher<Poll>;
@@ -104,7 +104,7 @@ public:
     configuration->transceivers_ids = {255, 256};
     hub_config_srv_client_->send_request(configuration);
 
-    poll_pub_ = node->create_publisher<Poll>("/poll", romea::sensor_data_qos());
+    poll_pub_ = node->create_publisher<Poll>("/poll", romea::ros2::sensor_data_qos());
 
     using namespace std::placeholders;
     auto callback = std::bind(&Master::range_callback_, this, _1);
@@ -114,7 +114,7 @@ public:
       rclcpp::CallbackGroupType::MutuallyExclusive);
 
     range_sub_ = node->create_subscription<Range>(
-      "range", romea::best_effort(1), callback, options);
+      "range", romea::ros2::best_effort(1), callback, options);
   }
 
   void poll(Poll poll)

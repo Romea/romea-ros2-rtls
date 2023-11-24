@@ -21,6 +21,8 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 //-----------------------------------------------------------------------------
 RTLSCoordinatorSchedulerInterface<RTLSSimpleCoordinatorScheduler>::RTLSCoordinatorSchedulerInterface(
@@ -72,5 +74,5 @@ void RTLSCoordinatorSchedulerInterface<RTLSGeoreferencedCoordinatorScheduler>::o
   scheduler.updateRobotPosition(position);
 }
 
-
+}  // namespace ros2
 }  // namespace romea

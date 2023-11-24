@@ -27,6 +27,8 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 //-----------------------------------------------------------------------------
 RTLSCommunicationHub::RTLSCommunicationHub(
@@ -135,4 +137,5 @@ size_t RTLSCommunicationHub::responder_index_(const uint16_t & responder_id)
 }
 
 
+}  // namespace ros2
 }  // namespace romea

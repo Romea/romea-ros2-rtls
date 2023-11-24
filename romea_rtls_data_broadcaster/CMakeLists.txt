@@ -53,12 +53,12 @@ ament_target_dependencies(${PROJECT_NAME}
 )
 
 rclcpp_components_register_node(${PROJECT_NAME}
-  PLUGIN "romea::RTLSPose2DBroadcaster"
+  PLUGIN "romea::ros2::RTLSPose2DBroadcaster"
   EXECUTABLE rtls_pose2d_broadcaster_node
 )
 
 rclcpp_components_register_node(${PROJECT_NAME}
-  PLUGIN "romea::RTLSTwist2DBroadcaster"
+  PLUGIN "romea::ros2::RTLSTwist2DBroadcaster"
   EXECUTABLE rtls_twist2d_broadcaster_node
 )
 

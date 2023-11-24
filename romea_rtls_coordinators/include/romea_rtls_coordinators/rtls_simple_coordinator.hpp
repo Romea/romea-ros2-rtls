@@ -33,6 +33,8 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 
 template<typename SchedulerType>
@@ -72,6 +74,7 @@ private:
 using RTLSSimpleCoordinator = RTLSCoordinator<RTLSSimpleCoordinatorScheduler>;
 using RTLSGeoreferencedCoordinator = RTLSCoordinator<RTLSGeoreferencedCoordinatorScheduler>;
 
+}  // namespace ros2
 }  // namespace romea
 
 #endif   // ROMEA_RTLS_COORDINATORS__RTLS_SIMPLE_COORDINATOR_HPP_

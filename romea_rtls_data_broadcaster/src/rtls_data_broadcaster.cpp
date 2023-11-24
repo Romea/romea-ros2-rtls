@@ -28,6 +28,8 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 
 //-----------------------------------------------------------------------------
@@ -89,23 +91,24 @@ void RTLSDataBroadcaster<DataType>::send_payload_(const std::vector<uint8_t> & p
 
 //-----------------------------------------------------------------------------
 template<>
-void RTLSDataBroadcaster<Twist2D>::odom_callback_(Odometry::ConstSharedPtr msg)
+void RTLSDataBroadcaster<core::Twist2D>::odom_callback_(Odometry::ConstSharedPtr msg)
 {
   send_payload_(serializeTwist2D(toTwist2D(to_romea(msg->twist))));
 }
 //-----------------------------------------------------------------------------
 template<>
-void RTLSDataBroadcaster<Pose2D>::odom_callback_(Odometry::ConstSharedPtr msg)
+void RTLSDataBroadcaster<core::Pose2D>::odom_callback_(Odometry::ConstSharedPtr msg)
 {
   send_payload_(serializePose2D(toPose2D(to_romea(msg->pose))));
 }
 
-template class RTLSDataBroadcaster<Pose2D>;
-template class RTLSDataBroadcaster<Twist2D>;
+template class RTLSDataBroadcaster<core::Pose2D>;
+template class RTLSDataBroadcaster<core::Twist2D>;
 
+}  // namespace ros2
 }  // namespace romea
 
 //-----------------------------------------------------------------------------
 #include "rclcpp_components/register_node_macro.hpp"
-RCLCPP_COMPONENTS_REGISTER_NODE(romea::RTLSPose2DBroadcaster)
-RCLCPP_COMPONENTS_REGISTER_NODE(romea::RTLSTwist2DBroadcaster)
+RCLCPP_COMPONENTS_REGISTER_NODE(romea::ros2::RTLSPose2DBroadcaster)
+RCLCPP_COMPONENTS_REGISTER_NODE(romea::ros2::RTLSTwist2DBroadcaster)

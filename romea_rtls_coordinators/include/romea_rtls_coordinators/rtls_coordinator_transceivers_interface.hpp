@@ -35,6 +35,8 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 class RTLSCoordinatorTransceiversInterface
 {
@@ -63,6 +65,7 @@ private:
   // TODO(JEAN) add payload support
 };
 
+}  // namespace ros2
 }  // namespace romea
 
 #endif   // ROMEA_RTLS_COORDINATORS__RTLS_COORDINATOR_TRANSCEIVERS_INTERFACE_HPP_

@@ -28,6 +28,9 @@
 
 namespace romea
 {
+namespace ros2
+{
+
 void declare_poll_rate(rclcpp::Node::SharedPtr node);
 void declare_range_std(rclcpp::Node::SharedPtr node);
 void declare_minimal_range(rclcpp::Node::SharedPtr node);
@@ -64,11 +67,12 @@ Eigen::Vector3d get_responder_position(rclcpp::Node::SharedPtr node);
 
 std::vector<uint16_t> get_initiators_ids(rclcpp::Node::SharedPtr node);
 std::vector<std::string> get_initiators_names(rclcpp::Node::SharedPtr node);
-VectorOfEigenVector<Eigen::Vector3d> get_initiators_positions(rclcpp::Node::SharedPtr node);
+core::VectorOfEigenVector<Eigen::Vector3d> get_initiators_positions(rclcpp::Node::SharedPtr node);
 std::vector<uint16_t> get_responders_ids(rclcpp::Node::SharedPtr node);
 std::vector<std::string> get_responders_names(rclcpp::Node::SharedPtr node);
-VectorOfEigenVector<Eigen::Vector3d> get_responders_positions(rclcpp::Node::SharedPtr node);
+core::VectorOfEigenVector<Eigen::Vector3d> get_responders_positions(rclcpp::Node::SharedPtr node);
 
+}  // namespace ros2
 }  // namespace romea
 
 #endif   // ROMEA_RTLS_UTILS__RTLS_PARAMETERS_HPP_

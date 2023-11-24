@@ -32,6 +32,9 @@
 namespace romea
 {
 
+namespace ros2
+{
+
 class RTLSCommunicationHub
 {
 public:
@@ -96,6 +99,7 @@ private:
   PayloadCallback payload_callback_;
 };
 
+}  // namespace ros2
 }  // namespace romea
 
 #endif   // ROMEA_RTLS_UTILS__RTLS_COMMUNICATION_HUB_HPP_

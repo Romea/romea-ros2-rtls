@@ -35,6 +35,8 @@ const char responders_positions_param_name[] = "responders_positions";
 
 namespace romea
 {
+namespace ros2
+{
 
 //-----------------------------------------------------------------------------
 void declare_poll_rate(rclcpp::Node::SharedPtr node)
@@ -153,4 +155,5 @@ VectorOfEigenVector<Eigen::Vector3d> get_responders_positions(rclcpp::Node::Shar
     get_responders_names(node));
 }
 
+}  // namespace ros2
 }  // namespace romea

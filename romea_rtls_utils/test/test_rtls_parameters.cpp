@@ -53,76 +53,76 @@ protected:
 };
 
 TEST_F(TestTransceiverParameters, getPollRate) {
-  romea::declare_poll_rate(node);
-  EXPECT_DOUBLE_EQ(romea::get_poll_rate(node), 20.0);
+  romea::ros2::declare_poll_rate(node);
+  EXPECT_DOUBLE_EQ(romea::ros2::get_poll_rate(node), 20.0);
 }
 
 TEST_F(TestTransceiverParameters, getMinimalRange) {
-  romea::declare_minimal_range(node);
-  EXPECT_DOUBLE_EQ(romea::get_minimal_range(node), 0.5);
+  romea::ros2::declare_minimal_range(node);
+  EXPECT_DOUBLE_EQ(romea::ros2::get_minimal_range(node), 0.5);
 }
 
 TEST_F(TestTransceiverParameters, getMaximalRange) {
-  romea::declare_maximal_range(node);
-  EXPECT_DOUBLE_EQ(romea::get_maximal_range(node), 20.0);
+  romea::ros2::declare_maximal_range(node);
+  EXPECT_DOUBLE_EQ(romea::ros2::get_maximal_range(node), 20.0);
 }
 
 TEST_F(TestTransceiverParameters, getInitiatorName) {
-  romea::declare_initiator_name(node);
-  EXPECT_STREQ(romea::get_initiator_name(node).c_str(), "i1");
+  romea::ros2::declare_initiator_name(node);
+  EXPECT_STREQ(romea::ros2::get_initiator_name(node).c_str(), "i1");
 }
 
 TEST_F(TestTransceiverParameters, getInitiatorId) {
-  romea::declare_initiator_id(node);
-  EXPECT_EQ(romea::get_initiator_id(node), 1);
+  romea::ros2::declare_initiator_id(node);
+  EXPECT_EQ(romea::ros2::get_initiator_id(node), 1);
 }
 
 TEST_F(TestTransceiverParameters, getInitiatorPosition) {
-  romea::declare_initiator_position(node);
-  auto initiator_position = romea::get_initiator_position(node);
+  romea::ros2::declare_initiator_position(node);
+  auto initiator_position = romea::ros2::get_initiator_position(node);
   EXPECT_EQ(initiator_position[0], 1);
   EXPECT_EQ(initiator_position[1], 2);
   EXPECT_EQ(initiator_position[2], 3);
 }
 
 TEST_F(TestTransceiverParameters, getResponderName) {
-  romea::declare_responder_name(node);
-  EXPECT_STREQ(romea::get_responder_name(node).c_str(), "i4");
+  romea::ros2::declare_responder_name(node);
+  EXPECT_STREQ(romea::ros2::get_responder_name(node).c_str(), "i4");
 }
 
 TEST_F(TestTransceiverParameters, getResponderId) {
-  romea::declare_responder_id(node);
-  EXPECT_EQ(romea::get_responder_id(node), 4);
+  romea::ros2::declare_responder_id(node);
+  EXPECT_EQ(romea::ros2::get_responder_id(node), 4);
 }
 
 TEST_F(TestTransceiverParameters, getResponderPosition) {
-  romea::declare_responder_position(node);
-  auto responder_position = romea::get_responder_position(node);
+  romea::ros2::declare_responder_position(node);
+  auto responder_position = romea::ros2::get_responder_position(node);
   EXPECT_EQ(responder_position[0], 11);
   EXPECT_EQ(responder_position[1], 12);
   EXPECT_EQ(responder_position[2], 13);
 }
 
 TEST_F(TestTransceiverParameters, getInitiatorsNames) {
-  romea::declare_initiators_names(node);
-  auto initiators_names = romea::get_initiators_names(node);
+  romea::ros2::declare_initiators_names(node);
+  auto initiators_names = romea::ros2::get_initiators_names(node);
   EXPECT_STREQ(initiators_names[0].c_str(), "i1");
   EXPECT_STREQ(initiators_names[1].c_str(), "i2");
   EXPECT_STREQ(initiators_names[2].c_str(), "i3");
 }
 
 TEST_F(TestTransceiverParameters, getInitiatorsIds) {
-  romea::declare_initiators_ids(node);
-  auto initiators_ids = romea::get_initiators_ids(node);
+  romea::ros2::declare_initiators_ids(node);
+  auto initiators_ids = romea::ros2::get_initiators_ids(node);
   EXPECT_EQ(initiators_ids[0], 1);
   EXPECT_EQ(initiators_ids[1], 2);
   EXPECT_EQ(initiators_ids[2], 3);
 }
 
 TEST_F(TestTransceiverParameters, getInitiatorsPositions) {
-  romea::declare_initiators_names(node);
-  romea::declare_initiators_positions(node);
-  auto initiators_positions = romea::get_initiators_positions(node);
+  romea::ros2::declare_initiators_names(node);
+  romea::ros2::declare_initiators_positions(node);
+  auto initiators_positions = romea::ros2::get_initiators_positions(node);
   EXPECT_EQ(initiators_positions[0][0], 1);
   EXPECT_EQ(initiators_positions[0][1], 2);
   EXPECT_EQ(initiators_positions[0][2], 3);
@@ -135,25 +135,25 @@ TEST_F(TestTransceiverParameters, getInitiatorsPositions) {
 }
 
 TEST_F(TestTransceiverParameters, getRespondersNames) {
-  romea::declare_responders_names(node);
-  auto responders_names = romea::get_responders_names(node);
+  romea::ros2::declare_responders_names(node);
+  auto responders_names = romea::ros2::get_responders_names(node);
   EXPECT_STREQ(responders_names[0].c_str(), "r1");
   EXPECT_STREQ(responders_names[1].c_str(), "r2");
   EXPECT_STREQ(responders_names[2].c_str(), "r3");
 }
 
 TEST_F(TestTransceiverParameters, getRespondersIds) {
-  romea::declare_responders_ids(node);
-  auto responders_ids = romea::get_responders_ids(node);
+  romea::ros2::declare_responders_ids(node);
+  auto responders_ids = romea::ros2::get_responders_ids(node);
   EXPECT_EQ(responders_ids[0], 4);
   EXPECT_EQ(responders_ids[1], 5);
   EXPECT_EQ(responders_ids[2], 6);
 }
 
 TEST_F(TestTransceiverParameters, getRespondersPositions) {
-  romea::declare_responders_names(node);
-  romea::declare_responders_positions(node);
-  auto responders_positions = romea::get_responders_positions(node);
+  romea::ros2::declare_responders_names(node);
+  romea::ros2::declare_responders_positions(node);
+  auto responders_positions = romea::ros2::get_responders_positions(node);
   EXPECT_EQ(responders_positions[0][0], 11);
   EXPECT_EQ(responders_positions[0][1], 12);
   EXPECT_EQ(responders_positions[0][2], 13);

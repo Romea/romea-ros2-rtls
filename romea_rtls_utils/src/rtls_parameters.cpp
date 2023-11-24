@@ -41,6 +41,8 @@ const char responders_positions_param_name[] = "responders_positions";
 
 namespace romea
 {
+namespace ros2
+{
 
 //-----------------------------------------------------------------------------
 void declare_poll_rate(rclcpp::Node::SharedPtr node)
@@ -228,7 +230,7 @@ std::vector<uint16_t> get_initiators_ids(rclcpp::Node::SharedPtr node)
 }
 
 //-----------------------------------------------------------------------------
-VectorOfEigenVector<Eigen::Vector3d> get_initiators_positions(rclcpp::Node::SharedPtr node)
+core::VectorOfEigenVector<Eigen::Vector3d> get_initiators_positions(rclcpp::Node::SharedPtr node)
 {
   return get_eigen_vector_parameters<Eigen::Vector3d>(
     node, initiators_positions_param_name,
@@ -253,7 +255,7 @@ std::vector<uint16_t> get_responders_ids(rclcpp::Node::SharedPtr node)
 }
 
 //-----------------------------------------------------------------------------
-VectorOfEigenVector<Eigen::Vector3d> get_responders_positions(rclcpp::Node::SharedPtr node)
+core::VectorOfEigenVector<Eigen::Vector3d> get_responders_positions(rclcpp::Node::SharedPtr node)
 {
   return get_eigen_vector_parameters<Eigen::Vector3d>(
     node, responders_positions_param_name,
@@ -266,4 +268,5 @@ bool get_enable_scheduler(rclcpp::Node::SharedPtr node)
   return get_parameter<bool>(node, enable_sheduler_param_name);
 }
 
+}  // namespace ros2
 }  // namespace romea

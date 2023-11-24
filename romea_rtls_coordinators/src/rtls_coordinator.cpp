@@ -19,6 +19,8 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 //-----------------------------------------------------------------------------
 template<typename SchedulerType>
@@ -87,9 +89,9 @@ void RTLSCoordinator<SchedulerType>::init_diagnostics_publisher_()
 template class RTLSCoordinator<RTLSSimpleCoordinatorScheduler>;
 template class RTLSCoordinator<RTLSGeoreferencedCoordinatorScheduler>;
 
-
+}  // namespace ros2
 }  // namespace romea
 
 #include "rclcpp_components/register_node_macro.hpp"
-RCLCPP_COMPONENTS_REGISTER_NODE(romea::RTLSSimpleCoordinator);
-RCLCPP_COMPONENTS_REGISTER_NODE(romea::RTLSGeoreferencedCoordinator);
+RCLCPP_COMPONENTS_REGISTER_NODE(romea::ros2::RTLSSimpleCoordinator);
+RCLCPP_COMPONENTS_REGISTER_NODE(romea::ros2::RTLSGeoreferencedCoordinator);

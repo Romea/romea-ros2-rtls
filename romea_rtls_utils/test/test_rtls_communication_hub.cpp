@@ -59,14 +59,14 @@ private:
 private:
   uint16_t transceiver_id_;
   std::vector<unsigned char> payload_;
-  std::unique_ptr<romea::RTLSTransceiverInterfaceServer> interface_;
+  std::unique_ptr<romea::ros::RTLSTransceiverInterfaceServer> interface_;
 };
 
 
 class TestRTLSCommunicationHub : public ::testing::Test
 {
 public:
-  using Hub = romea::RTLSCommunicationHub;
+  using Hub = romea::ros2::RTLSCommunicationHub;
   using Poll = romea_rtls_msgs::msg::Poll;
 
 protected:

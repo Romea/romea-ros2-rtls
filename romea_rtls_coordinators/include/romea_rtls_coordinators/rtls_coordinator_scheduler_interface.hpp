@@ -32,6 +32,8 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 template<typename SchedulerType>
 struct RTLSCoordinatorSchedulerInterface;
@@ -65,6 +67,7 @@ struct RTLSCoordinatorSchedulerInterface<RTLSGeoreferencedCoordinatorScheduler>
   std::shared_ptr<rclcpp::Subscription<Odometry>> odom_sub;
 };
 
+}  // namespace ros2
 }  // namespace romea
 
 #endif   // ROMEA_RTLS_COORDINATORS__RTLS_COORDINATOR_SCHEDULER_INTERFACE_HPP_

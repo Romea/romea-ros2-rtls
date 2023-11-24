@@ -33,6 +33,8 @@
 
 namespace romea
 {
+namespace ros2
+{
 
 template<typename DataType>
 class RTLSDataBroadcaster
@@ -67,9 +69,10 @@ private:
   std::shared_ptr<rclcpp::Subscription<Odometry>> odom_sub_;
 };
 
-using RTLSPose2DBroadcaster = RTLSDataBroadcaster<Pose2D>;
-using RTLSTwist2DBroadcaster = RTLSDataBroadcaster<Twist2D>;
+using RTLSPose2DBroadcaster = RTLSDataBroadcaster<core::Pose2D>;
+using RTLSTwist2DBroadcaster = RTLSDataBroadcaster<core::Twist2D>;
 
+}  // namespace ros2
 }  // namespace romea
 
 #endif   // ROMEA_RTLS_DATA_BROADCASTER__RTLS_DATA_BROADCASTER_HPP_
